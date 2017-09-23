@@ -9,6 +9,8 @@ from binascii import hexlify, unhexlify
 with open(sys.argv[1]) as inv:
     invoice = json.load(inv)
 
+inv.close()
+
 compressed = lzma.compress(bytes(json.dumps(invoice), 'utf-8'), format=lzma.FORMAT_ALONE)
 b58 = base58encode(hexlify(compressed).decode('utf-8'))
 url = "https://market.gurondex.io/invoice/%s" % b58

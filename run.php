@@ -15,7 +15,11 @@ if (isset($_POST['filename'])) {
     $command = escapeshellcmd('python3 generate.py ' . $_POST['filename'] . '.json');
     $output = shell_exec($command);
 
+    $inv = fopen($_POST['filename'].'.json', 'r') or die('Unable to open file!');
     echo "<hr>";
+    echo "<pre>" . fread($inv, filesize($_POST['filename'].'.json')) . "</pre><br>";
+    fclose($inv);
+
     echo "Your <a href='" . $output . "'>link</a>";
 }
 
